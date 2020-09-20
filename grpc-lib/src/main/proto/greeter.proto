@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+option java_package = "com.lidaifeng.grpc.lib";
+
+option java_multiple_files = true;
+
+// demo案例
+service Greeter {
+    // demo案例
+    rpc SayHello ( HelloRequest) returns (  HelloReply) {}
+
+    //思迪组合上架接口
+    rpc ThinkivePortfolioSubmit(ThinkivePortfolioSubmitRequest) returns (ThinkivePortfolioSubmitResponse) {}
+
+    //思迪组合点评发送审核
+    rpc ThinkivePortfolioCommentExam(ThinkivePortfolioCommentExamRequest) returns (ThinkivePortfolioCommentExamResponse) {}
+
+}
+// The request message containing the user's name.
+message HelloRequest {
+    string name = 1;
+}
+// The response message containing the greetings
+message HelloReply {
+    string message = 1;
+}
+
+message ThinkivePortfolioSubmitRequest {
+    oneof check_funcNo{
+        string funcNo = 1; //功能号
+    }
+    oneof check_portfolioId{
+        string portfolioId = 2; //组合id
+    }
+    oneof check_productId{
+        string productId = 3; //产品id
+    }
+    oneof check_investNo{
+        string investNo = 4; //投顾号
+    }
+    string investDesc = 5; //投顾介绍
+    string portfolioName = 6; //组合名称
+    string portfolioDesc = 7; //组合描述
+    string operatorType = 8; //操作类型
+    string expireDate = 9; //时间
+}
+
+message ThinkivePortfolioSubmitResponse {
+    int32 code = 1;     //返回值
+    string note = 2;    //返回消息
+}
+
+message ThinkivePortfolioCommentExamRequest {
+    oneof check_funcNo{
+        string funcNo = 1; //功能号
+    }
+    oneof check_serviceContentId{
+        string serviceContentId = 2; //服务内容id
+    }
+    string examState = 3; //审核状态
+    string examReason = 4; //审核原因
+}
+
+message ThinkivePortfolioCommentExamResponse {
+    int32 code = 1;     //返回值
+    string note = 2;    //返回消息
+}
